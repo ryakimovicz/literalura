@@ -4,6 +4,7 @@ import com.ryakimovicz.literalura.model.Autor;
 import com.ryakimovicz.literalura.model.Datos;
 import com.ryakimovicz.literalura.model.DatosLibro;
 import com.ryakimovicz.literalura.model.Libro;
+import com.ryakimovicz.literalura.repository.AutorRepository;
 import com.ryakimovicz.literalura.repository.LibroRepository;
 import com.ryakimovicz.literalura.service.ConsumoAPI;
 import com.ryakimovicz.literalura.service.ConvierteDatos;
@@ -20,17 +21,19 @@ public class Principal {
     private ConvierteDatos conversor = new ConvierteDatos();
     private final String URL_BASE = "https://gutendex.com/books/";
     private LibroRepository libroRepository; // Repositorio
+    private AutorRepository autorRepository;
 
     // Constructor para inyectar el repositorio
-    public Principal(LibroRepository libroRepository) {
+    public Principal(LibroRepository libroRepository, AutorRepository autorRepository) {
         this.libroRepository = libroRepository;
+        this.autorRepository = autorRepository;
     }
 
     public void muestraElMenu() {
         var opcion = -1;
         while (opcion != 0) {
             var menu = """
-                    1 - Buscar libro por título 
+                    1 - Buscar libro por título
                     2 - Listar libros registrados
                     3 - Listar autores registrados
                     4 - Listar autores vivos en un determinado año
@@ -48,6 +51,12 @@ public class Principal {
                     break;
                 case 2: // <-- NUEVO CASO
                     listarLibrosRegistrados();
+                    break;
+                case 3: // <-- NUEVO CASO
+                    listarAutoresRegistrados();
+                    break;
+                case 4: // <-- NUEVO CASO
+                    listarAutoresVivosEnDeterminadoAnio();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -88,5 +97,25 @@ public class Principal {
     private void listarLibrosRegistrados() {
         List<Libro> libros = libroRepository.findAll();
         libros.forEach(System.out::println);
+    }
+
+    private void listarAutoresRegistrados() {
+        List<Autor> autores = autorRepository.findAll();
+        autores.forEach(System.out::println);
+    }
+
+    private void listarAutoresVivosEnDeterminadoAnio() {
+        System.out.println("Ingresa el año vivo de autor(es) que deseas buscar:");
+        var anio = teclado.nextInt();
+        teclado.nextLine(); // Limpiar el buffer del scanner
+
+        List<Autor> autoresVivos = autorRepository.buscarAutoresVivos(anio);
+
+        if (autoresVivos.isEmpty()) {
+            System.out.println("No se encontraron autores vivos en el año " + anio + ".");
+        } else {
+            System.out.println("Autores vivos en el año " + anio + ":");
+            autoresVivos.forEach(System.out::println);
+        }
     }
 }

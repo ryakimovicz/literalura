@@ -1,5 +1,6 @@
 package com.ryakimovicz.literalura;
 
+import com.ryakimovicz.literalura.repository.AutorRepository;
 import com.ryakimovicz.literalura.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +12,8 @@ public class LiteraluraApplication implements CommandLineRunner {
 
 	@Autowired // Inyecta el repositorio
 	private LibroRepository libroRepository;
+	@Autowired
+	private AutorRepository autorRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LiteraluraApplication.class, args);
@@ -18,7 +21,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal(libroRepository); // Pasa el repositorio a Principal
+		Principal principal = new Principal(libroRepository, autorRepository);
 		principal.muestraElMenu();
 	}
 }
