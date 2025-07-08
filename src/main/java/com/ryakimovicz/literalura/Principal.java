@@ -46,6 +46,9 @@ public class Principal {
                 case 1:
                     buscarLibroWeb();
                     break;
+                case 2: // <-- NUEVO CASO
+                    listarLibrosRegistrados();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -80,5 +83,10 @@ public class Principal {
         } else {
             System.out.println("Libro no encontrado");
         }
+    }
+
+    private void listarLibrosRegistrados() {
+        List<Libro> libros = libroRepository.findAll();
+        libros.forEach(System.out::println);
     }
 }
