@@ -22,12 +22,6 @@ La aplicación cuenta con las siguientes funcionalidades:
 -   [x] **Listar autores vivos en un determinado año:** Permite al usuario ingresar un año y muestra los autores que estaban vivos en ese período.
 -   [x] **Listar libros por idioma:** Muestra una lista de libros filtrada por el idioma seleccionado por el usuario (Español, Inglés, Francés, Portugués).
 
-## 🚀 Demostración
-
-*Aquí puedes agregar una captura de pantalla o un GIF de tu aplicación funcionando para que se vea más atractivo.*
-
-![Demostración de Literalura](https://i.imgur.com/link_a_tu_imagen.png)
-
 ## 🛠️ Tecnologías Utilizadas
 
 -   **Java 21:** Versión del Lenguaje de Programación.
