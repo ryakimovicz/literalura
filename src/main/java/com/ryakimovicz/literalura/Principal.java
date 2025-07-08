@@ -58,6 +58,9 @@ public class Principal {
                 case 4: // <-- NUEVO CASO
                     listarAutoresVivosEnDeterminadoAnio();
                     break;
+                case 5: // <-- NUEVO CASO
+                    listarLibrosPorIdioma();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -116,6 +119,25 @@ public class Principal {
         } else {
             System.out.println("Autores vivos en el año " + anio + ":");
             autoresVivos.forEach(System.out::println);
+        }
+    }
+
+    private void listarLibrosPorIdioma() {
+        System.out.println("""
+            Seleccione el idioma para buscar los libros:
+            es - español
+            en - inglés
+            fr - francés
+            pt - portugués
+            """);
+        var idiomaSeleccionado = teclado.nextLine();
+        List<Libro> librosPorIdioma = libroRepository.findByIdioma(idiomaSeleccionado);
+
+        if (librosPorIdioma.isEmpty()) {
+            System.out.println("No se encontraron libros en el idioma '" + idiomaSeleccionado + "'.");
+        } else {
+            System.out.println("Libros en '" + idiomaSeleccionado + "':");
+            librosPorIdioma.forEach(System.out::println);
         }
     }
 }
